@@ -1,3 +1,9 @@
-<script type="text/javascript">
-    "use strict";$(function(){$(document).on("contextmenu",function(n){return!1})});
-</script>
+<?php if ($this->options->JContextMenuStatus === 'off') : ?>
+    <script type="text/javascript">
+        (() => {
+            window.initContextmenu = () => {
+                $(document).on("contextmenu", () => false)
+            }
+        })(window)
+    </script>
+<?php endif; ?>

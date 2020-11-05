@@ -1,3 +1,22 @@
-<script type="text/javascript">
-    "use strict";$(function(){var o=function(){$(window).scrollTop()>500?$("#backtop").css("transform","scale(1)"):$("#backtop").css("transform","scale(0)")};$("#backtop").length>0&&(o(),$(window).on("scroll",function(){return o()})),$("#backtop").on("click",function(){$("html,body").stop().animate({scrollTop:0},300)})});
-</script>
+<?php if ($this->options->JBackTopStatus === 'on') : ?>
+    <script type="text/javascript">
+        (() => {
+            window.initBackTop = () => {
+                let isShowBackTop = () => {
+                    if ($("#joe").scrollTop() > 500) {
+                        $("#backToTop").addClass("active")
+                    } else {
+                        $("#backToTop").removeClass("active")
+                    }
+                }
+                isShowBackTop()
+                $("#joe").on("scroll", function() {
+                    isShowBackTop()
+                })
+                $("#backToTop").on("click", function() {
+                    $("#joe").scrollTop(0)
+                })
+            }
+        })(window)
+    </script>
+<?php endif; ?>

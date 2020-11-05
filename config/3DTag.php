@@ -1,8 +1,42 @@
-<?php if ($this->options->JCDN == 'close') : ?>
-    <script src="<?php $this->options->themeUrl('plugin/svg3dtagcloud/svg3dtagcloud.min.js'); ?>"></script>
-<?php else : ?>
-    <script src="//cdn.jsdelivr.net/npm/typecho_joe_theme@<?php echo getVersion() ?>/plugin/svg3dtagcloud/svg3dtagcloud.min.js"></script>
+<?php if ($this->options->J3DTagStatus === 'on') : ?>
+    <?php if ($this->options->JCDN === 'on') : ?>
+        <script src="//cdn.jsdelivr.net/npm/typecho_joe_theme@<?php echo JoeVersion() ?>/library/3DTag/3DTag.min.js"></script>
+    <?php else : ?>
+        <script src="<?php $this->options->themeUrl('library/3DTag/3DTag.min.js'); ?>"></script>
+    <?php endif; ?>
+
+    <script>
+        (function() {
+            window.initSvg3DTag = () => {
+                let cloudList = []
+                $("#cloudList li").each(function(i, item) {
+                    cloudList.push({
+                        label: $(item).attr("data-label"),
+                        url: $(item).attr("data-url"),
+                        target: "_blank",
+                    })
+                })
+                $("#cloud").svg3DTagCloud({
+                    entries: cloudList,
+                    width: 220,
+                    height: 230,
+                    radius: "65%",
+                    radiusMin: 75,
+                    bgDraw: !0,
+                    bgColor: "#000",
+                    opacityOver: 1,
+                    opacityOut: .05,
+                    opacitySpeed: 6,
+                    fov: 800,
+                    speed: .5,
+                    fontSize: 13,
+                    fontColor: "#fff",
+                    fontWeight: "500",
+                    fontStyle: "normal",
+                    fontStretch: "normal",
+                    fontToUpperCase: !0
+                })
+            }
+        })(window)
+    </script>
 <?php endif; ?>
-<script>
-    "use strict";$(function(){if($("#cloudList").length>0){var t=Array.from($("#cloudList li")).map(function(t){return{label:$(t).attr("data-label"),url:$(t).attr("data-url")}});$("#cloud").svg3DTagCloud({entries:t,width:230,height:230,radius:"65%",radiusMin:75,bgDraw:!0,bgColor:"#222",opacityOver:1,opacityOut:.05,opacitySpeed:6,fov:800,speed:.5,fontSize:"14",fontColor:"#fff",fontWeight:"500",fontStyle:"normal",fontStretch:"normal",fontToUpperCase:!0})}});
-</script>
